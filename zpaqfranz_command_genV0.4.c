@@ -51,7 +51,7 @@ int main(){
 
         printf("\n buffer size? (in kib) ");
         scanf("%d", &buffer);
-        if {buffer > 2147483647}{    // only reason i put this here is because zpaqfranz has a 32bit integer limit on the buffer.
+        if (buffer > 2147483647){    // only reason i put this here is because zpaqfranz has a 32bit integer limit on the buffer.
             die();
         } else {
 
