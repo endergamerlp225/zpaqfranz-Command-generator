@@ -20,10 +20,9 @@ int main(){
     scanf("%d", &a);
 
     if (a == 1) {       // ssd and ht set.
-        device = "ssd";
-        ht_flag = "-ht";
+        device = "-ssd -ht";
     } else if (a == 2)  {   // hdd
-        device = "hdd";
+        device = "-hdd";
     } else {
         die();
     }
@@ -57,14 +56,13 @@ int main(){
         scanf("%d", &buffer);     // no check because its capped at the 32 bit int limit anyway.
 
         snprintf(command, sizeof(command),
-            "zpaqfranz a %s-m%d_%s-frag%d.zpaq Directory -m%d %s -%s -verbose %s %s -fragment %d -buffer %d",
+            "zpaqfranz a %s-m%d_%s-frag%d.zpaq Directory -m%d %s -verbose %s %s -fragment %d -buffer %d",
             Archive,
             b,          // method used
             checks,     // checksum or no checksum
             fragment,   // fragments
             b,          // method used
-            ht_flag,    // only turned on if ssd is.
-            device,     // ssd or hdd
+            device,     // ssd or hdd. ht only on if ssd is
             checks,     // checksum
             hash2,      // not to be confused with hash.
             fragment,
