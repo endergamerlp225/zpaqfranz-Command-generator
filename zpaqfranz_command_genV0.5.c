@@ -1,20 +1,23 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int die(){              // here so i won't repeat that same code over and over again. D.R.Y Don't Repeat Yourself.
-    printf("\n Invalid argument, closing program.");
-    return 0;
+void die(void){              // here so i won't repeat that same code over and over again. D.R.Y Don't Repeat Yourself.
+    printf("\nInvalid argument, closing program.");
+    exit(1);
 }
 
 int main(){
-    int a, method, check, b;
+    int a, method, check, b, hashC;
     int fragment = 6;
     int buffer = 4;    // 4 is the default that zpaqfranz uses, its in kib btw.
-    char hash2[64] = "-xxhash"
     char Archive[100] = "Archive_name";
-    char command[512] = "zpaqfranz a"; // 512 seems a bit much... wait thats bits, so it aint... or is it bytes? still, not much tbh.
+    char command[512] = "zpaqfranz a";
     char *device;
-    char *checks;
-    char *ht_flag;
+    char *hw;
+    const char *checks;
+    const char *hashes[] = {
+    "-crc32", "-xxhash", "-sha1", "-sha256", "-xxh3", "-blake3", "-sha3", "-md5", "-whirlpool", "-highway64", "-highway128", "-highway256", "-xxhashb", "-md5b", "-blake3b", "-sha256b", "-sha3b", "-xxh3b", "-sha1b"
+};
 
     printf("\nssd or hdd? 1 = ssd, 2 = hdd: ");
     scanf("%d", &a);
@@ -34,13 +37,19 @@ int main(){
     printf("\nchecksum or nochecksum? 1 = nochecksum, 2 = checksum: ");
     scanf("%d", &check);
     if (check == 1) {
-        checks = "-nochecksum -hw";
+        checks = "-nochecksum";
+        hw = "-hw";
     } else if (check == 2){
-//        checks = "";
         printf("\nwhich algorithm do you want?");
-        printf("\ncrc32 xxhash sha1 sha256 xxh3 blake3 sha3 md5 whirlpool highway64 highway128 highway256 xxhashb md5b blake3b sha256b sha3b xxh3b sha1b");    // no logic yet, has to come still
-        printf("\n1     2      3    4      5    6      7    8   9         10        11         12         13      14   15      16      17    18    19"); // i don't give a singular fuck if it looks shit.
-        scanf("%d", &hash)
+        printf("\n-crc32 -xxhash -sha1 -sha256 -xxh3 -blake3 -sha3 -md5 -whirlpool -highway64 -highway128 -highway256 -xxhashb -md5b -blake3b -sha256b -sha3b -xxh3b -sha1b");
+        printf("\n 1      2       3     4       5     6       7     8    9          10         11          12          13       14    15       16       17     18     19\n");
+        scanf("%d", &hashC);
+
+        if (hashC < 1 || hashC > 19) {
+            die();
+        }
+        hw = "";
+        checks = hashes[hashC - 1];
     } else {
         die();
     }
@@ -56,7 +65,7 @@ int main(){
         scanf("%d", &buffer);     // no check because its capped at the 32 bit int limit anyway.
 
         snprintf(command, sizeof(command),
-            "zpaqfranz a %s-m%d_%s-frag%d.zpaq Directory -m%d %s -verbose %s %s -fragment %d -buffer %d",
+            "zpaqfranz a %s-m%d_%s-frag%d.zpaq Directory -m%d %s -verbose %s -fragment %d -buffer %d %s",
             Archive,
             b,          // method used
             checks,     // checksum or no checksum
@@ -64,18 +73,19 @@ int main(){
             b,          // method used
             device,     // ssd or hdd. ht only on if ssd is
             checks,     // checksum
-            hash2,      // not to be confused with hash.
             fragment,
-            buffer
+            buffer,
+            hw
         );
         printf("\nGenerated command:\n%s\n", command);
     }
     return 0;
 }
 
-// No directory checks you may ask?
-// thats because i'm shit at C
-// and can't seem to figure out
-// how to assign it to a var
-// without getting a SIGSEV
-// or some other shit error.
+/*
+Todo: idunno whatto writehere
+Add directory options.
+2 hours wasted for something nobody will use other than me.
+worth it, worth the pain and the experience i'll gain.
+C is somehow better than lua for me it seems.
+*/
