@@ -1,7 +1,7 @@
 How to build it:
 ```
 git clone https://github.com/Dark1510/zpaqfranz-Command-generator.git
-cd zpaqfranz-Command-genertor
+cd zpaqfranz-Command-generator
 gcc zpaqfranz_command_genV0.4.c -O2 -march=native -o zpaqfranz_command_gen
 ```
 How to use it:
