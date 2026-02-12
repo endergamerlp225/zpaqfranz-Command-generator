@@ -9,6 +9,7 @@ int die(){              // here so i won't repeat that same code over and over a
 int main(){
     int a, method, check, b;
     int fragment = 6;
+    int buffer = 4;    // 4 is the default that zpaqfranz uses, its in kib btw.
     char Archive[100] = "Archive_name";
     char command[512] = "zpaqfranz a"; // 512 seems a bit much... wait thats bits, so it aint... or is it bytes? still, not much tbh.
     char *device;
@@ -38,7 +39,7 @@ int main(){
     } else if (check == 2){
         checks = "";
     } else {
-        die();
+        die();    // just die.
     }
     printf("Which method do you want? from 1 to 5 only: ");
     scanf("%d", &b);
@@ -48,19 +49,27 @@ int main(){
         printf("fragments to use? 6 is set by default: ");
         scanf("%d", &fragment);         // no check needed, there aint no limit, or at least none that i know of.
 
-        snprintf(command, sizeof(command),
-            "zpaqfranz a %s-m%d_%s_frag%d.zpaq Directory -m%d %s -%s -verbose -hw %s -fragment %d",
-            Archive,
-            b,        // method used
-            checks,    // checksum or no checksum
-            fragment,    // fragments
-            b,          // method used
-            ht_flag,         // only turned on if ssd is.
-            device, // ssd or hdd
-            checks,     // checksum
-            fragment
-        );
-        printf("\nGenerated command:\n%s\n", command);
+        printf("\n buffer size? (in kib) ");
+        scanf("%d", &buffer);
+        if {buffer > 2147483647}{    // only reason i put this here is because zpaqfranz has a 32bit integer limit on the buffer.
+            die();
+        } else {
+
+            snprintf(command, sizeof(command),
+                "zpaqfranz a %s-m%d_%s_frag%d.zpaq Directory -m%d %s -%s -verbose -hw %s -fragment %d -buffer %d",
+                Archive,
+                b,        // method used
+                checks,    // checksum or no checksum
+                fragment,    // fragments
+                b,          // method used
+                ht_flag,         // only turned on if ssd is.
+                device, // ssd or hdd
+                checks,     // checksum
+                fragment,
+                buffer
+            );
+            printf("\nGenerated command:\n%s\n", command);
+        }
     }
     return 0;
 }
