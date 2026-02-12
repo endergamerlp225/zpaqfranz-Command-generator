@@ -2,7 +2,7 @@ How to build it:
 ```
 git clone https://github.com/endergamerlp225/zpaqfranz-Command-generator.git
 cd zpaqfranz-Command-genertor
-gcc zpaqfranz_command_genV0.3.c -O2 -march=native -o zpaqfranz_command_gen
+gcc zpaqfranz_command_genV0.4.c -O2 -march=native -o zpaqfranz_command_gen
 ```
 How to use it:
 
