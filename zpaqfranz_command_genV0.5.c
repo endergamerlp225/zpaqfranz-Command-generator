@@ -7,6 +7,7 @@ void die(void){              // here so i won't repeat that same code over and o
 }
 
 int main(){
+    // the top is always the place to declare all vars, chars etc.
     int a, method, check, b, hashC;
     int fragment = 6;
     int buffer = 4;    // 4 is the default that zpaqfranz uses, its in kib btw.
@@ -48,7 +49,7 @@ int main(){
             die();
         }
         hw = "";
-        checks = hashes[hashC - 1];
+        checks = hashes[hashC - 1];    // wtf does this do? i actually don't know, nor do i remember how i figured out what it does.
     } else {
         die();
     }
@@ -62,7 +63,7 @@ int main(){
         printf("\nhow many fragments needed, 6 is set by default: ");
         scanf("%d", &fragment);         // no check needed
 
-        printf("\nbuffer size? (in kib) ");
+        printf("\nbuffer size in kib, 4 is default: ");
         scanf("%d", &buffer);     // no check because its capped at the 32 bit int limit anyway.
 
         snprintf(command, sizeof(command),
