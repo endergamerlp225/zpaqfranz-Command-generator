@@ -19,7 +19,7 @@ int main(){
     "-crc32", "-xxhash", "-sha1", "-sha256", "-xxh3", "-blake3", "-sha3", "-md5", "-whirlpool", "-highway64", "-highway128", "-highway256", "-xxhashb", "-md5b", "-blake3b", "-sha256b", "-sha3b", "-xxh3b", "-sha1b"
 };
 
-    printf("\nssd or hdd? 1 = ssd, 2 = hdd: ");
+    printf("\nssd or hdd, 1 = ssd, 2 = hdd: ");
     scanf("%d", &a);
 
     if (a == 1) {       // ssd and ht set.
@@ -44,26 +44,22 @@ int main(){
         printf("\n-crc32 -xxhash -sha1 -sha256 -xxh3 -blake3 -sha3 -md5 -whirlpool -highway64 -highway128 -highway256 -xxhashb -md5b -blake3b -sha256b -sha3b -xxh3b -sha1b");
         printf("\n 1      2       3     4       5     6       7     8    9          10         11          12          13       14    15       16       17     18     19\n"); // why did i add a second newline right there?
         scanf("%d", &hashC);
-        
         if (hashC < 1 || hashC > 19) {
             die();
         }
-        
         hw = "";
         checks = hashes[hashC - 1];
-        
     } else {
         die();
     }
     
     printf("\nWhich method needed, from 1 to 5 only: ");
     scanf("%d", &b);
-    
     if (b < 1 || b > 5){    // if its below or above the specified range, die.
         die();
     } else {
         
-        printf("\n how many fragments needed, 6 is set by default: ");
+        printf("\nhow many fragments needed, 6 is set by default: ");
         scanf("%d", &fragment);         // no check needed
 
         printf("\nbuffer size? (in kib) ");
