@@ -7,10 +7,12 @@ void die(void){
 }
 
 int main(){
-    int a, c, m, hc, f, b;
-    char Ar[100] = "tmp-name";
-    char command[512] = "zpaqfranz a";
-    char *device;
+    int a, c, m, hc;
+    int f = 6;
+    int b = 4;
+    char Ar[128] = "tmp-name";
+    char command[256] = "zpaqfranz a";
+    char *d;
     char *hw;
     const char *ch;
     const char *h[] = {
@@ -21,16 +23,15 @@ int main(){
     scanf("%d", &a);
 
     if (a == 1) {
-        device = "-ssd -ht";
+        d = "-ssd -ht";
     } else if (a == 2)  {
-        device = "-hdd";
+        d = "-hdd";
     } else {
         die();
     }
 
-    printf("\narchive name (Use _ or - instead of spaces): ");
+    printf("\narchive name, _ or - instead of spaces: ");
     scanf("%s", Ar);
-
 
     printf("\nnochecksum = 1, checksum = 2: ");
     scanf("%d", &c);
@@ -56,7 +57,7 @@ int main(){
     if (m < 1 || m > 5){
         die();
     } else {
-        printf("\nfragments, 6 is default: ");
+        printf("\nfragments: ");
         scanf("%d", &f);
 
         printf("\nbuffer size in kib: ");
@@ -64,7 +65,7 @@ int main(){
 
         snprintf(command, sizeof(command),
             "zpaqfranz a %s-m%d_%s-frag%d.zpaq tmp_dir -m%d %s -verbose -%s -fragment %d -buffer %d %s",
-            Ar,m,ch,f,m,device,ch,f,b,hw
+            Ar,m,ch,f,m,d,ch,f,b,hw
         );
         printf("\nGenerated command:\n%s\n", command);
     }
