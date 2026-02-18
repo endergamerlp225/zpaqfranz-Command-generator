@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -8,9 +7,7 @@ void die(void){
 }
 
 int main(){
-    int a, c, m, hc;
-    int f = 6;
-    int b = 4;
+    int a, c, m, hc, f, b;
     char Ar[100] = "tmp-name";
     char command[512] = "zpaqfranz a";
     char *device;
