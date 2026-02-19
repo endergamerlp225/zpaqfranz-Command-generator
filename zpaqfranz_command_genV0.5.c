@@ -7,7 +7,7 @@ void die(void){              // here so i won't repeat that same code over and o
 }
 
 int main(){
-    int a, method, check, b, hashC;
+    int a, check, m, hashC;
     int fragment = 6;
     int buffer = 4;    // 4 is the default that zpaqfranz uses, its in kib btw.
     char Archive[100] = "Archive_name";
@@ -30,7 +30,7 @@ int main(){
         die();
     }
     // archive name check below.
-    printf("\narchive name? (Use _ or - instead of spaces) ");
+    printf("\narchive name, (Use _ or - instead of spaces): ");
     scanf("%s", Archive);
 
     // no/checksum check below.
@@ -53,7 +53,7 @@ int main(){
     } else {
         die();
     }
-    printf("\nWhich method do you want? from 1 to 5 only: ");
+    printf("\nMethod from 1-5: ");
     scanf("%d", &b);
     if (b < 1 || b > 5){    // if its below or above the specified range, die.
         die();
@@ -62,15 +62,15 @@ int main(){
         scanf("%d", &fragment);         // no check needed
 
         printf("\nbuffer size? (in kib) ");
-        scanf("%d", &buffer);     // no check because its capped at the 32 bit int limit anyway.
+        scanf("%d", &buffer);     // no check needed
 
         snprintf(command, sizeof(command),
             "zpaqfranz a %s-m%d_%s-frag%d.zpaq Directory -m%d %s -verbose %s -fragment %d -buffer %d %s",
             Archive,
-            b,          // method used
+            m,          // method used
             checks,     // checksum or no checksum
             fragment,   // fragments
-            b,          // method used
+            m,          // method used
             device,     // ssd or hdd. ht only on if ssd is
             checks,     // checksum
             fragment,
@@ -81,11 +81,3 @@ int main(){
     }
     return 0;
 }
-
-/*
-Todo: idunno whatto writehere
-Add directory options.
-2 hours wasted for something nobody will use other than me.
-worth it, worth the pain and the experience i'll gain.
-C is somehow better than lua for me it seems.
-*/
