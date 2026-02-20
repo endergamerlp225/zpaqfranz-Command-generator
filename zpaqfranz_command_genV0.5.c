@@ -8,7 +8,7 @@ void die(void){              // here so i won't repeat that same code over and o
 
 int main(){
     // the top is always the place to declare all vars, chars etc.
-    int a, method, check, b, hashC;
+    int a, method, check, hashC;
     int fragment = 6;
     int buffer = 4;    // 4 is the default that zpaqfranz uses, its in kib btw.
     char Archive[100] = "Archive_name";
@@ -16,11 +16,9 @@ int main(){
     char *device;
     char *hw;
     const char *checks;
-    const char *hashes[] = {
-    "-crc32", "-xxhash", "-sha1", "-sha256", "-xxh3", "-blake3", "-sha3", "-md5", "-whirlpool", "-highway64", "-highway128", "-highway256", "-xxhashb", "-md5b", "-blake3b", "-sha256b", "-sha3b", "-xxh3b", "-sha1b"
-};
+    const char *hashes[] = {"-crc32", "-xxhash", "-sha1", "-sha256", "-xxh3", "-blake3", "-sha3", "-md5", "-whirlpool", "-highway64", "-highway128", "-highway256", "-xxhashb", "-md5b", "-blake3b", "-sha256b", "-sha3b", "-xxh3b", "-sha1b"};
 
-    printf("\nssd or hdd, 1 = ssd, 2 = hdd: ");
+    printf("\nssd or hdd" "\n1 = ssd, 2 = hdd: ");
     scanf("%d", &a);
     if (a == 1) {       // ssd and ht set.
         device = "-ssd -ht";
@@ -31,31 +29,31 @@ int main(){
     }
 
     // archive name check below.
-    printf("\narchive name, use - or _ instead of spaces: ");
+    printf("\narchive name without spaces: ");
     scanf("%s", Archive);
 
     // no/checksum check below.
-    printf("\nchecksum or nochecksum, 1 = nochecksum, 2 = checksum: ");
+    printf("\nchecksum or nochecksum ""\n1 = nochecksum, 2 = checksum: ");
     scanf("%d", &check);
     if (check == 1) {
         checks = "-nochecksum";
         hw = "-hw";
     } else if (check == 2){
-        printf("\nwhich algorithm do you want?");
+        printf("\ninput the number for the corresponding hashing algorithm.");
         printf("\n-crc32 -xxhash -sha1 -sha256 -xxh3 -blake3 -sha3 -md5 -whirlpool -highway64 -highway128 -highway256 -xxhashb -md5b -blake3b -sha256b -sha3b -xxh3b -sha1b");
-        printf("\n 1      2       3     4       5     6       7     8    9          10         11          12          13       14    15       16       17     18     19\n"); // why did i add a second newline right there?
+        printf("\n   1      2      3      4      5      6      7     8       9          10         11          12         13     14     15        16      17     18     19\n");
         scanf("%d", &hashC);
         if (hashC < 1 || hashC > 19) {
             die();
         }
         hw = "";
-        checks = hashes[hashC - 1];    // wtf does this do? i actually don't know, nor do i remember how i figured out what it does.
+        checks = hashes[hashC - 1];
     } else {
         die();
     }
     printf("\nWhich method needed, from 1 to 5 only: ");
-    scanf("%d", &b);
-    if (b < 1 || b > 5){    // if its below or above the specified range, die.
+    scanf("%d", &method);
+    if (method < 1 || method > 5){    // if its below or above the specified range, die.
         die();
     } else {
         printf("\nhow many fragments needed, 6 is set by default: ");
@@ -69,10 +67,10 @@ int main(){
             snprintf(command, sizeof(command),
                 "zpaqfranz a %s-m%d_%s-frag%d.zpaq Directory -m%d %s -verbose %s -fragment %d -buffer %d %s",
                 Archive,
-                b,          // method used
+                method,     // method used
                 checks,     // checksum or no checksum
                 fragment,   // fragments
-                b,          // method used
+                method,     // method used
                 device,     // ssd or hdd. ht only on if ssd is
                 checks,     // checksum
                 fragment,
